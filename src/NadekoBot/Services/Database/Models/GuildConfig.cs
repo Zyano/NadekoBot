@@ -17,6 +17,10 @@ namespace NadekoBot.Services.Database.Models
         public int AutoDeleteGreetMessagesTimer { get; set; } = 30;
         public int AutoDeleteByeMessagesTimer { get; set; } = 30;
 
+        // Annoucement stuff
+        public ulong? InfoChannelId { get; set; }
+        public ulong? MusicChannelId { get; set; }
+
         public ulong GreetMessageChannelId { get; set; }
         public ulong ByeMessageChannelId { get; set; }
 
