@@ -33,8 +33,10 @@ namespace NadekoBot.Modules.Music.Common.SongResolver
                     else if (RadioResolveStrategy.IsRadioLink(query))
                         return new RadioResolveStrategy();
                     // maybe add a check for local files in the future
-                    else
+                    else if(YoutubeResolveStrategy.IsYoutubeLink(query))
                         return new YoutubeResolveStrategy();
+                    else
+                        return new GeneralMediaResolveStrategy();
             }
         }
     }

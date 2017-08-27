@@ -55,6 +55,8 @@ namespace NadekoBot.Modules.Music.Common
                         return $"https://google.com/search?q={ WebUtility.UrlEncode(Title).Replace(' ', '+') }";
                     case MusicType.Radio:
                         return $"https://google.com/search?q={Title}";
+                    case MusicType.General:
+                        return $"https://google.com/search?q={ WebUtility.UrlEncode(Title).Replace(' ', '+') }";
                     default:
                         return "";
                 }

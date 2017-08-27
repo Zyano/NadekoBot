@@ -195,12 +195,11 @@ Check the guides for your platform on how to setup ffmpeg correctly:
             {
                 if(!this.p.HasExited)
                     this.p.Kill();
+                this.p.Dispose();
             }
             catch
             {
             }
-            _outStream.Dispose();
-            this.p.Dispose();
         }
     }
 }

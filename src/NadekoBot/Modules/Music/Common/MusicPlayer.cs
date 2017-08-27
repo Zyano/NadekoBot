@@ -197,7 +197,7 @@ namespace NadekoBot.Modules.Music.Common
                             // i don't want to spam connection attempts
                             continue;
                         }
-                        pcm = ac.CreatePCMStream(AudioApplication.Music, bufferMillis: 500);
+                        pcm = ac.CreatePCMStream(AudioApplication.Music, null, 250, 5);
                         _log.Info("Created pcm stream");
                         OnStarted?.Invoke(this, data);
 

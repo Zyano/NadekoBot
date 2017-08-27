@@ -16,6 +16,8 @@ namespace NadekoBot.Modules.Music.Common.SongResolver.Strategies
             _log = LogManager.GetCurrentClassLogger();
         }
 
+        public static bool IsYoutubeLink(string url) => System.Text.RegularExpressions.Regex.IsMatch(url, "(.*)(youtube.com|youtu.be)(.*)");
+
         public async Task<SongInfo> ResolveSong(string query)
         {
             _log.Info("Getting link");
