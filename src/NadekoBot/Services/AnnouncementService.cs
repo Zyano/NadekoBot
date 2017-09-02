@@ -33,28 +33,32 @@ namespace NadekoBot.Services
 
         private async Task ClientOnUserVoiceStateUpdated(SocketUser socketUser, SocketVoiceState oldChannel, SocketVoiceState newChannel)
         {
-            var settings = GetOrAddSettingsForGuild(((SocketGuildUser)socketUser).Guild.Id);
-            if (settings.InfoChannelId == null)
+            var sockgetGuildUser = socketUser as SocketGuildUser;
+            if(sockgetGuildUser == null)
+                return;
+
+            var settings = GetOrAddSettingsForGuild(sockgetGuildUser.Guild.Id);
+            if (settings.InfoChannelId == null) // The guild owner hasn't configued announcements
                 return;
 
             // Joins voice channel
-            if (oldChannel.VoiceChannel != null && newChannel.VoiceChannel != null)
+            if (oldChannel.VoiceChannel != null && newChannel.VoiceChannel != null && oldChannel.VoiceChannel.Id != newChannel.VoiceChannel.Id)
             {
-                await oldChannel.VoiceChannel.Guild.TextChannels.FirstOrDefault(x => x.Id == settings.InfoChannelId).EmbedAsync(new EmbedBuilder()
-                    .WithTitle(socketUser.Username + " joined - " + newChannel.VoiceChannel.Name)
-                ).ConfigureAwait(false);
+                //await oldChannel.VoiceChannel.Guild.TextChannels.FirstOrDefault(x => x.Id == settings.InfoChannelId).EmbedAsync(new EmbedBuilder()
+                //    .WithCurrentTimestamp().WithTitle(socketUser.Username + " joined - " + newChannel.VoiceChannel.Name)
+                //).ConfigureAwait(false);
             }
             else if (oldChannel.VoiceChannel != null && newChannel.VoiceChannel == null) // leaves voice channel
             {
-                
+
                 await oldChannel.VoiceChannel.Guild.TextChannels.FirstOrDefault(x => x.Id == settings.InfoChannelId).EmbedAsync(new EmbedBuilder()
-                    .WithTitle(socketUser.Username + " left - " + oldChannel.VoiceChannel.Name)
+                    .WithCurrentTimestamp().WithTitle(socketUser.Username + " left - " + oldChannel.VoiceChannel.Name)
                 ).ConfigureAwait(false);
             } else if (oldChannel.VoiceChannel == null && newChannel.VoiceChannel != null)
             {
-                await newChannel.VoiceChannel.Guild.TextChannels.FirstOrDefault(x => x.Id == settings.InfoChannelId).EmbedAsync(new EmbedBuilder()
-                    .WithTitle(socketUser.Username + " joined - " + newChannel.VoiceChannel.Name)
-                ).ConfigureAwait(false);
+                //await newChannel.VoiceChannel.Guild.TextChannels.FirstOrDefault(x => x.Id == settings.InfoChannelId).EmbedAsync(new EmbedBuilder()
+                //    .WithCurrentTimestamp().WithTitle(socketUser.Username + " joined - " + newChannel.VoiceChannel.Name)
+                //).ConfigureAwait(false);
             }
         }
 
